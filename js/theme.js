@@ -151,122 +151,6 @@ function ace_close_sidebar() {
     ace_unlock_scroll();
 }
 
-/* Certy Progress Circle */
-function ace_progress_chart(element, text, value, duration) {
-    var circle = new ProgressBar.Circle(element, {
-        color: certy.vars.themeColor,
-        strokeWidth: 5,
-        trailWidth: 0,
-        text: {
-            value: text,
-            className: 'progress-text',
-            style: {
-                top: '50%',
-                left: '50%',
-                color: certy.progress.textColor,
-                position: 'absolute',
-                margin: 0,
-                padding: 0,
-                transform: {
-                    prefix: true,
-                    value: 'translate(-50%, -50%)'
-                }
-            },
-            autoStyleContainer: true,
-            alignToBottom: true
-        },
-        svgStyle: {
-            display: 'block',
-            width: '100%'
-        },
-        duration: duration,
-        easing: 'easeOut'
-    });
-
-    circle.animate(value); // Number from 0.0 to 1.0
-}
-
-/* Certy Progress Line */
-function ace_progress_line(element, text, value, duration) {
-    var line = new ProgressBar.Line(element, {
-        strokeWidth: 4,
-        easing: 'easeInOut',
-        duration: duration,
-        color: certy.vars.themeColor,
-        trailColor: certy.progress.trailColor,
-        trailWidth: 4,
-        svgStyle: {
-            width: '100%',
-            height: '100%'
-        },
-        text: {
-            value: text,
-            className: 'progress-text',
-            style: {
-                top: '-25px',
-                right: '0',
-                color: certy.progress.textColor,
-                position: 'absolute',
-                margin: 0,
-                padding: 0,
-                transform: {
-                    prefix: true,
-                    value: 'translate(0, 0)'
-                }
-            },
-            autoStyleContainer: true
-        }
-    });
-
-    line.animate(value);  // Number from 0.0 to 1.0
-}
-
-/* Certy Element In Viewport */
-function ace_is_elem_in_viewport(el, vpart) {
-    var rect = el[0].getBoundingClientRect();
-
-    return (
-    rect.bottom >= 0 &&
-    rect.right >= 0 &&
-    rect.top + vpart <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.left <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
-function ace_is_elems_in_viewport(elems, vpart) {
-    for (var i = 0; i < elems.length; i++) {
-        var item = $(elems[i]);
-
-        if (item.hasClass('crt-animate') && ace_is_elem_in_viewport(item, vpart)) {
-            item.removeClass('crt-animate').addClass('crt-animated');
-
-            // Animate Circle Chart
-            if(item.hasClass('progress-chart')){
-                var chart = item.find('.progress-bar');
-                ace_progress_chart(chart[0], chart.data('text'), chart.data('value'), 1000);
-            }
-
-            // Animate Line Chart
-            if(item.hasClass('progress-line')){
-                var line = item.find('.progress-bar');
-                ace_progress_line(line[0], line.data('text'), line.data('value'), 1000);
-            }
-        }
-    }
-}
-
-function ace_appear_elems(elems, vpart) {
-    ace_is_elems_in_viewport(elems, vpart);
-
-    $(window).scroll(function () {
-        ace_is_elems_in_viewport(elems, vpart);
-    });
-
-    $(window).resize(function () {
-        ace_is_elems_in_viewport(elems, vpart);
-    });
-}
-
 /* Certy Google Map */
 function initialiseGoogleMap() {
     var latlng;
@@ -970,7 +854,7 @@ $(function () { // start: document ready
      * Certy Animate Elements
      */
     if(certy.progress.animation && !ace.mobile) {
-        ace_appear_elems($('.crt-animate'), 150);
+        // ace_appear_elems($('.crt-animate'), 150);
     }
 
     /**
