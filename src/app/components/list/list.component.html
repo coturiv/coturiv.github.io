@@ -1,0 +1,180 @@
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16">
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center">
+            <h2 class="text-4xl">Projects by @coturiv</h2>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto p-6 sm:p-10">
+
+        <div class="flex flex-col flex-auto w-full max-w-xs sm:max-w-5xl mx-auto">
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row items-center justify-between w-full max-w-xs sm:max-w-none">
+                <mat-form-field class="w-full sm:w-36">
+                    <mat-select
+                        [value]="'all'"
+                        (selectionChange)="filterByCategory($event)">
+                        <mat-option [value]="'all'">All</mat-option>
+                        <ng-container *ngFor="let category of categories; trackBy: trackByFn">
+                            <mat-option [value]="category.slug">{{category.title}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field
+                    class="w-full sm:w-72 mt-4 sm:mt-0 sm:ml-4"
+                    [floatLabel]="'always'">
+                    <mat-icon
+                        matPrefix
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_outline:search'"></mat-icon>
+                    <input
+                        (input)="filterByQuery(query.value)"
+                        placeholder="Search by title or description"
+                        matInput
+                        #query>
+                </mat-form-field>
+                <mat-slide-toggle
+                    class="mt-8 sm:mt-0 sm:ml-auto"
+                    [color]="'primary'"
+                    (change)="toggleCompleted($event)">
+                    Hide completed
+                </mat-slide-toggle>
+            </div>
+            <!-- projects -->
+            <ng-container *ngIf="this.filteredProjects.length; else noProjects">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 sm:mt-10">
+                    <ng-container *ngFor="let project of filteredProjects; trackBy: trackByFn">
+                        <!-- project -->
+                        <div class="flex flex-col h-96 shadow rounded-2xl overflow-hidden bg-card">
+                            <div class="flex flex-col p-6">
+                                <div class="flex items-center justify-between">
+                                    <!-- project category -->
+                                    <ng-container *ngIf="(project.category | findByKey:'slug':categories) as category">
+                                        <div
+                                            class="py-0.5 px-3 rounded-full text-sm font-semibold"
+                                            [ngClass]="{'text-blue-800 bg-blue-100 dark:text-blue-50 dark:bg-blue-500': category.slug === 'web',
+                                                        'text-green-800 bg-green-100 dark:text-green-50 dark:bg-green-500': category.slug === 'android',
+                                                        'text-pink-800 bg-pink-100 dark:text-pink-50 dark:bg-pink-500': category.slug === 'cloud',
+                                                        'text-amber-800 bg-amber-100 dark:text-amber-50 dark:bg-amber-500': category.slug === 'firebase'}">
+                                            {{category.title}}
+                                        </div>
+                                    </ng-container>
+                                    <!-- Completed at least once -->
+                                    <div class="flex items-center">
+                                        <ng-container *ngIf="project.progress.completed > 0">
+                                            <mat-icon
+                                                class="icon-size-5 text-green-600"
+                                                [svgIcon]="'heroicons_outline:badge-check'"
+                                                [matTooltip]="'You completed this project at least once'"></mat-icon>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <!-- project title & description -->
+                                <div class="mt-4 text-lg font-medium">{{project.title}}</div>
+                                <div class="mt-0.5 line-clamp-2 text-secondary">{{project.description}}</div>
+                                <div class="w-12 h-1 my-6 border-t-2"></div>
+                                <!-- project time -->
+                                <div class="flex items-center leading-5 text-md text-secondary">
+                                    <mat-icon
+                                        class="icon-size-5 text-hint"
+                                        [svgIcon]="'heroicons_outline:clock'"></mat-icon>
+                                    <div class="ml-1.5">{{project.duration}} minutes</div>
+                                </div>
+                                <!-- project completion -->
+                                <div class="flex items-center mt-2 leading-5 text-md text-secondary">
+                                    <mat-icon
+                                        class="icon-size-5 text-hint"
+                                        [svgIcon]="'heroicons_outline:academic-cap'"></mat-icon>
+                                    <ng-container *ngIf="project.progress.completed === 0">
+                                        <div class="ml-1.5">Never completed</div>
+                                    </ng-container>
+                                    <ng-container *ngIf="project.progress.completed > 0">
+                                        <div class="ml-1.5">
+                                            <span>Completed</span>
+                                            <span class="ml-1">
+                                                <!-- Once -->
+                                                <ng-container *ngIf="project.progress.completed === 1">once</ng-container>
+                                                <!-- Twice -->
+                                                <ng-container *ngIf="project.progress.completed === 2">twice</ng-container>
+                                                <!-- Others -->
+                                                <ng-container *ngIf="project.progress.completed > 2">{{project.progress.completed}}
+                                                    {{project.progress.completed | i18nPlural: {
+                                                        '=0'   : 'time',
+                                                        '=1'   : 'time',
+                                                        'other': 'times'
+                                                    } }}
+                                                </ng-container>
+                                            </span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <!-- Footer -->
+                            <div class="flex flex-col w-full mt-auto">
+                                <!-- project progress -->
+                                <div class="relative h-0.5">
+                                    <div
+                                        class="z-10 absolute inset-x-0 h-6 -mt-3"
+                                        [matTooltip]="project.progress.currentStep / project.totalSteps | percent"
+                                        [matTooltipPosition]="'above'"
+                                        [matTooltipClass]="'-mb-0.5'"></div>
+                                    <mat-progress-bar
+                                        class="h-0.5"
+                                        [value]="(100 * project.progress.currentStep) / project.totalSteps"></mat-progress-bar>
+                                </div>
+
+                                <!-- project launch button -->
+                                <div class="px-6 py-4 text-right bg-gray-50 dark:bg-transparent">
+                                    <a
+                                        mat-stroked-button>
+                                        <span class="inline-flex items-center">
+
+                                            <!-- Not started -->
+                                            <ng-container *ngIf="project.progress.currentStep === 0">
+                                                <!-- Never completed -->
+                                                <ng-container *ngIf="project.progress.completed === 0">
+                                                    <span>Start</span>
+                                                </ng-container>
+                                                <!-- Completed before -->
+                                                <ng-container *ngIf="project.progress.completed > 0">
+                                                    <span>Start again</span>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <!-- Started -->
+                                            <ng-container *ngIf="project.progress.currentStep > 0">
+                                                <span>Continue</span>
+                                            </ng-container>
+
+                                            <mat-icon
+                                                class="ml-1.5 icon-size-5"
+                                                [svgIcon]="'heroicons_outline:arrow-sm-right'"></mat-icon>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <!-- No projects -->
+            <ng-template #noProjects>
+                <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                    <mat-icon
+                        class="icon-size-24"
+                        [svgIcon]="'heroicons_outline:document-search'"></mat-icon>
+                    <div class="mt-6 text-2xl font-semibold tracking-tight text-secondary">No projects found!</div>
+                </div>
+            </ng-template>
+        </div>
+
+    </div>
+
+</div>
