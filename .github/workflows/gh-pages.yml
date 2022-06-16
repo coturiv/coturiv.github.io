@@ -15,8 +15,10 @@ jobs:
           node-version: 14
       - run: |
           npm ci
-          npm run build -- --configuration=production --base-href "https://coturiv.github.io/"
+          npm run build -- --configuration=production --base-href https://apps.coturiv.fyi
       - uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/coturiv.github.io
+          force_orphan: true
+          cname: apps.coturiv.fyi
