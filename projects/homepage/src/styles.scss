@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: Brandon;
+    src: url(/assets/fonts//brandon_bld-webfont.eot);
+    src: url(/assets/fonts//brandon_bld-webfont.eot?#iefix) format("embedded-opentype"),url(/assets/fonts//brandon_bld-webfont.woff) format("woff"),url(/assets/fonts//brandon_bld-webfont.ttf) format("truetype"),url(/assets/fonts//brandon_bld-webfont.svg#BrandonGrotesqueBoldRegular) format("svg");
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Brandon;
+    src: url(/assets/fonts//brandon_reg-webfont.eot);
+    src: url(/assets/fonts//brandon_reg-webfont.eot?#iefix) format("embedded-opentype"),url(/assets/fonts//brandon_reg-webfont.woff) format("woff"),url(/assets/fonts//brandon_reg-webfont.ttf) format("truetype"),url(/assets/fonts//brandon_reg-webfont.svg#BrandonGrotesqueRegularRg) format("svg");
+    font-weight: 500;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Brandon;
+    src: url(/assets/fonts//brandon_light-webfont.eot);
+    src: url(/assets/fonts//brandon_light-webfont.eot?#iefix) format("embedded-opentype"),url(/assets/fonts//brandon_light-webfont.woff) format("woff"),url(/assets/fonts//brandon_light-webfont.ttf) format("truetype"),url(/assets/fonts//brandon_light-webfont.svg#BrandonGrotesqueLight) format("svg");
+    font-weight: 300;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Brandon;
+    src: url(/assets/fonts//brandon_med-webfont.eot);
+    src: url(/assets/fonts//brandon_med-webfont.eot?#iefix) format("embedded-opentype"),url(/assets/fonts//brandon_med-webfont.woff) format("woff"),url(/assets/fonts//brandon_med-webfont.ttf) format("truetype"),url(/assets/fonts//brandon_med-webfont.svg#BrandonGrotesqueMedium) format("svg");
+    font-weight: 600;
+    font-style: normal
+}
+
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    margin: 0; 
+    font-family: Brandon, "Helvetica Neue", sans-serif; 
+}
+
+:root {
+    h1, h2, h3, h4, h5, h6, p, button {
+        font-family: Brandon;
+    }
+
+    p {
+        font-size: 16px;
+        color: #595959;
+    }
+}
+

@@ -1,0 +1,83 @@
+:host {
+    svg#clouds {
+        position: fixed;
+        bottom: -160px;
+        left: -230px;
+        z-index: -10;
+        width: 1920px;
+    }
+
+    .container {
+        margin-top: 48px;
+    }
+
+    .content {
+        max-width: 1024px;
+        padding: 16px;
+        margin: 0 auto;
+
+        .c-profile {
+            max-width: 720px;
+            width: 100%;
+            height: 240px;
+            border-radius: 15px;
+            background-image: url(/assets/images/DSC00183.jpg);
+            background-position-y: center;
+            background-size: cover;
+            
+            .social-buttons {
+                margin: 8px;
+        
+                a[mat-mini-fab] {
+                    background-color: #4e4e4e;
+                }
+            }
+        }
+
+        .c-overview {
+            margin-top: 48px;
+
+            .o-description {
+                font-family: Brandon;
+                font-size: 21px;
+                line-height: 1.5;
+                color: #222;
+                font-weight: 300;
+            }
+        }
+
+        .c-showcases {
+            margin-top: 80px;
+
+            .c-title {
+                font-family: Brandon;
+                font-size: 1.6rem;
+                line-height: 1.5;
+                color: #222;
+                font-weight: 600;
+                text-align: center;
+                display: block;
+
+                &::before {
+                    content: " ";
+                    position: absolute;
+                    top: 50%;
+                    height: 2px;
+                    width: 80px;
+                    margin: 0 10px;
+                    display: inline-block;
+                    zoom: 1;
+                    background: #333;
+                    right: 100%;
+                }
+            }
+        }
+    
+    }
+
+    @media only screen and (max-width: 600px) {
+        .content .c-profile {
+            height: 160px;
+        }
+    }
+}

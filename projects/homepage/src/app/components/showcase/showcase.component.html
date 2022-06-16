@@ -1,0 +1,15 @@
+<div style="padding: 8px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px" *ngIf="project as p">
+    <div fxFlex="72px" class="s-thumbnail">
+        <img [src]="p.icon">
+    </div>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" class="s-details">
+        <div>
+            <h3>{{p.name}}</h3>
+            <p>{{p.description}}</p>
+        </div>
+        <div>
+            <button mat-flat-button (click)="openProject()">View</button>
+        </div>
+    </div>
+</div>

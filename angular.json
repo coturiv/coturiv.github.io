@@ -113,6 +113,117 @@
           }
         }
       }
+    },
+    "homepage": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/homepage",
+      "sourceRoot": "projects/homepage/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/homepage",
+            "index": "projects/homepage/src/index.html",
+            "main": "projects/homepage/src/main.ts",
+            "polyfills": "projects/homepage/src/polyfills.ts",
+            "tsConfig": "projects/homepage/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/homepage/src/favicon.ico",
+              "projects/homepage/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/homepage/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/homepage/src/environments/environment.ts",
+                  "with": "projects/homepage/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "homepage:build:production"
+            },
+            "development": {
+              "browserTarget": "homepage:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "homepage:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/homepage/src/test.ts",
+            "polyfills": "projects/homepage/src/polyfills.ts",
+            "tsConfig": "projects/homepage/tsconfig.spec.json",
+            "karmaConfig": "projects/homepage/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/homepage/src/favicon.ico",
+              "projects/homepage/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/homepage/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/homepage/**/*.ts",
+              "projects/homepage/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
