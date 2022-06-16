@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "coturiv-fyi": {
+      "hosting": {
+        "homepage": [
+          "coturiv-fyi"
+        ]
+      }
+    }
+  }
+}
