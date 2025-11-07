@@ -24,13 +24,13 @@ export class AppComponent {
       name: 'Arbitral',
       icon: 'assets/images/p-arbitral.svg',
       description: 'Crowd Sourced Fact Checking Media Bias',
-      link: 'https://arbitral.web.app'
+      link: 'https://arbitral.app'
     },
     {
       name: 'Comparrot',
       icon: 'assets/images/p-cprt.jpg',
       description: 'Finds the cheapest prices as you shop automatically',
-      link: 'https://joincomparrot.com'
+      link: 'https://comparrot.web.app/'
     },
     {
       name: 'Karrot',
@@ -43,11 +43,11 @@ export class AppComponent {
       icon: 'assets/images/p-vcitem.png',
       description: 'Companion app for Velosum citation system',
       link: 'http://velosum.com'
-      // }, {
-      //   name: 'Monkey Method',
-      //   icon: 'assets/images/p-mm.png',
-      //   description: 'Monkey Method Gymnastics & Weightlifting Training',
-      //   link: 'https://apps.apple.com/us/app/monkey-method/id1222654341'
+    // }, {
+    //   name: 'Monkey Method',
+    //   icon: 'assets/images/p-mm.png',
+    //   description: 'Monkey Method Gymnastics & Weightlifting Training',
+    //   link: 'https://apps.apple.com/us/app/monkey-method/id1222654341'
     }
   ];
 
